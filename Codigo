@@ -38,5 +38,5 @@ plt.show()
 
 #imprimir el numero de paginas
 print(len(reader.pages))
-#imprime alguna pagina de la constitucion
+#imprime alguna pagina especifica de la constitucion
 print(reader.pages[139].extract_text())
