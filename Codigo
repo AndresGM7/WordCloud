@@ -1,0 +1,42 @@
+import PyPDF2
+import pandas as pd
+import nltk
+import re
+import wordcloud
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+from nltk.corpus import stopwords
+
+
+nltk.download('stopwords')
+
+pdf_file=open('','rb') #reemplazar en las primeas comillas la ruta del PDF que deseen leer
+pdf_reader = PyPDF2.PdfReader(pdf_file)
+
+# Extraer el texto del PDF
+text = ''
+for page in range(len(pdf_reader.pages)):
+    page_obj = pdf_reader.pages[page]
+    text += page_obj.extract_text()
+    
+    # Crear la nube de palabras
+stop_words = set(stopwords.words('spanish')) # Seleccionar el idioma de las stopwords
+wordcloud = WordCloud(width=800, height=800,
+                      background_color='white',
+                      stopwords=stop_words,
+                      min_font_size=10).generate(text)
+                     
+                     
+# Mostrar la nube de palabras
+plt.figure(figsize=(8, 8), facecolor=None)
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.tight_layout(pad=0)
+
+plt.show()
+
+
+#imprimir el numero de paginas
+print(len(reader.pages))
+#imprime alguna pagina de la constitucion
+print(reader.pages[139].extract_text())
